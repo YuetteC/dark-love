@@ -21,6 +21,28 @@
             align-items: center;
             position: relative;
         }
+
+        /* 撲通撲通的心臟 */
+        .heart {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background-color: darkred;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            clip-path: polygon(50% 15%, 100% 35%, 90% 100%, 50% 80%, 10% 100%, 0% 35%);
+            animation: heartbeat 1.5s infinite;
+            filter: drop-shadow(0 0 10px red);
+        }
+
+        @keyframes heartbeat {
+            0% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.2); }
+            100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        /* 動態文字 */
         .text {
             position: absolute;
             font-size: 2rem;
@@ -28,11 +50,13 @@
             opacity: 0.8;
             transform: rotate(0deg);
         }
+
         @keyframes fadeInOut {
             0% { opacity: 0; }
             50% { opacity: 1; }
             100% { opacity: 0; }
         }
+
         @keyframes moveRandom {
             0% {
                 transform: translate(0, 0) rotate(0deg);
@@ -44,10 +68,13 @@
     </style>
 </head>
 <body>
+    <!-- 心臟 -->
+    <div class="heart"></div>
+
     <script>
         const phrases = [
-            "我喜歡你", "你是否能感受到", "沉浸在無法言喻的情緒", "壓抑", "無法逃離",
-            "你聽見了嗎", "心跳加快", "一遍又一遍", "我喜歡你"
+            "我喜歡你", "你無處可逃", "在我的世界裡", "心跳聲響起",
+            "你能聽見嗎？", "越來越快", "無法停止", "沉淪", "我在等你"
         ];
 
         function createText() {
@@ -68,6 +95,14 @@
         }
 
         setInterval(createText, 500);
+
+        // 背景音效
+        const audio = new Audio("https://www.fesliyanstudios.com/play-mp3/387"); // 低頻心跳聲
+        audio.loop = true;
+        audio.volume = 0.5;
+        document.body.addEventListener("click", () => {
+            audio.play();
+        });
     </script>
 </body>
 </html>
