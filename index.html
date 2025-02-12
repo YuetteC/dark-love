@@ -22,24 +22,49 @@
             position: relative;
         }
 
-        /* 撲通撲通的心臟 */
+        /* 修正後的心臟樣式 */
         .heart {
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             background-color: darkred;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            clip-path: polygon(50% 15%, 100% 35%, 90% 100%, 50% 80%, 10% 100%, 0% 35%);
-            animation: heartbeat 1.5s infinite;
-            filter: drop-shadow(0 0 10px red);
+            border-radius: 50%;
+            animation: heartbeat 1.5s infinite, shake 0.3s infinite;
+            filter: drop-shadow(0 0 15px red);
+        }
+
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-color: darkred;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -75px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 75px;
+            top: 0;
         }
 
         @keyframes heartbeat {
             0% { transform: translate(-50%, -50%) scale(1); }
             50% { transform: translate(-50%, -50%) scale(1.2); }
             100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes shake {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(1deg); }
+            100% { transform: translate(-50%, -50%) rotate(-1deg); }
         }
 
         /* 動態文字 */
@@ -58,17 +83,13 @@
         }
 
         @keyframes moveRandom {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            100% {
-                transform: translate(calc(100vw * (random() - 0.5)), calc(100vh * (random() - 0.5))) rotate(calc(20deg * (random() - 0.5)));
-            }
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(calc(100vw * (random() - 0.5)), calc(100vh * (random() - 0.5))) rotate(calc(20deg * (random() - 0.5))); }
         }
     </style>
 </head>
 <body>
-    <!-- 心臟 -->
+    <!-- 修正後的心臟 -->
     <div class="heart"></div>
 
     <script>
@@ -106,4 +127,3 @@
     </script>
 </body>
 </html>
-
