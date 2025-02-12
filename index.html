@@ -5,35 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我喜歡你</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
         body {
             background-color: black;
             color: white;
             font-family: 'Courier New', monospace;
-            text-align: center;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            position: relative;
         }
         .text {
+            position: absolute;
             font-size: 2rem;
-            animation: fadeInOut 3s infinite;
+            animation: fadeInOut 3s infinite, moveRandom 5s infinite;
+            opacity: 0.8;
+            transform: rotate(0deg);
         }
         @keyframes fadeInOut {
             0% { opacity: 0; }
             50% { opacity: 1; }
             100% { opacity: 0; }
         }
+        @keyframes moveRandom {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            100% {
+                transform: translate(calc(100vw * (random() - 0.5)), calc(100vh * (random() - 0.5))) rotate(calc(20deg * (random() - 0.5)));
+            }
+        }
     </style>
 </head>
 <body>
-    <h1 class="text">我喜歡你</h1>
-</body>
-</html>
+    <script>
+        const phrases = [
+            "我喜歡你", "你是否能感受到", "沉浸在無法言喻的情緒", "壓抑", "無法逃離",
+            "你聽見了嗎", "心跳加快", "一遍又一遍", "我喜歡你"
+        ];
 
+        function createText() {
+            const text = document.createElement("div");
+            text.classList.add("text");
+            text.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+
+            const size = Math.random() * 2 + 1; // 1rem ~ 3rem
+            text.style.fontSize = `${size}rem`;
+            text.style.left = `${Math.random() * 100}vw`;
+            text.style.top = `${Math.random() * 100}vh`;
+
+            document.body.appendChild(text);
+
+            setTimeout(() => {
+                text.remove();
+            }, 5000);
         }
+
+        setInterval(createText, 500);
     </script>
 </body>
 </html>
-<!-- 更新 GitHub Pages -->
+
